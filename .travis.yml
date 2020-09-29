@@ -1,0 +1,23 @@
+language: php
+branches:
+  only:
+  - master
+  - "/^.*[[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+.*$/"
+php:
+- '7.2'
+script: phpunit --bootstrap src/stub.php --test-suffix '-test.php,Test.php,.phpt'
+  tests
+notifications:
+  email: false
+before_deploy:
+- composer phar:install-tools
+- composer install --prefer-dist --no-dev --no-interaction
+- php box.phar build
+deploy:
+  provider: releases
+  api_key:
+    secure: E24OjPIPjGFnR9VhGymDb3y1z3CQBAoHTsEia1LbneqDFlKxJCxwYhf/8ftSi9xkiixuMC2fM1usqM+dVQCBT/3PR2U8BW2ZUXppbmvQ64rP99DdL9+pv611YZ287NjxVNe91FmKEiP7FN1HTpO+kHpbVfMEhCw+2Bdpx+6GGlve7cKaB5so0TXZPa0uprA9po/IYjFyi+HDFr2Cjv9leWXJIdbG4+/7a3LPcyd0Q9Y1Fa5zNc7gyg3hfoIZ4lg3kr+x5xK14rTsEV6HEvEOScGhwJDtHxNEGfXlCUx2MBPYZjuQUDffn9TREmJsNAjTpKbGAbzH/0olWTfnr6DkP3B+erY8PL2pH/YaAcB2bIlbranmmjymQWnwT+7YM2WoUczF7Ob8HZJsexSgsewWTfyzqU6OAx8uu24edWlwefOsrNmYJy4npQXP8yTYxQOlXqJMuxbUTNVk+aXkm7wip55IbMywD7qw8hJjhHrPtWMHKSodRYJkvnTmEx9A20G1CvmR93c3HA9aubfE3kpbkxOYO2T1tjp6U64H4SiK3f7AsKl2X8SCXAK1jsJDY99C06caKqR9+sSyKIwF6uw57Tz3fot9M/dqoo3z9icYUmBsmd5mBmWExgFcrVz4f7UrpXJFL1n6v1tHQiCxAn0P6Xt8uSLSno4ZyKMdSU+p+AA=
+  file: scribe.phar
+  on:
+    repo: bhoogter/scribe
+  skip_cleanup: 'true'
