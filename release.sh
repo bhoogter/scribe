@@ -38,7 +38,7 @@ releaseNewVersion() {
   tagRelease $ver
 
   NEW_PATCH=$(( $PATCH + 1 ))
-  NEW_VERSION="$MAJOR.$MINOR.$PATCH-dev"
+  NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH-dev"
   echo "Setting new version: ${NEW_VERSION}"
   echo "$NEW_VERSION" > VERSION
 
