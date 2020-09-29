@@ -72,6 +72,14 @@ while getopts "RS" opt; do
 done
 shift $((OPTIND - 1))
 
-if [[ "$REPEAT" != "" ]]; then  rollbackVersion; fi
+if [[ "$REPEAT" != "" ]]; then 
+  rollbackVersion
+  
+  DEV_VER="$(cat VERSION)"
+  ver="$(cat VERSION | sed -e 's/-dev$//')"
+  MAJOR=$(echo "${ver}" | sed -e 's/\.[0-9]*\.[0-9]*$//')
+  MINOR=$(echo "${ver}" | sed -e 's/^[0-9]*\.//' | sed -e 's/\.[0-9]*$//')
+  PATCH=$(echo "${ver}" | sed -e 's/^[0-9]*.[0-9]*.//')
+fi
 
 releaseNewVersion
