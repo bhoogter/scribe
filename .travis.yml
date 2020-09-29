@@ -20,4 +20,5 @@ deploy:
   file: scribe.phar
   on:
     repo: bhoogter/scribe
+    tags: true
   skip_cleanup: 'true'
