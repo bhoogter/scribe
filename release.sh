@@ -30,8 +30,10 @@ removeTag() {
 
 releaseNewVersion() {
   # Remove '-dev' from the version file to prepare for release.
-  echo $ver > VERSION.tmp
-  mv -f VERSION.tmp VERSION
+  if [[ "$ver" != "$DEV_VER" ]]; then
+    echo $ver > VERSION.tmp
+    mv -f VERSION.tmp VERSION
+  fi
 
   tagRelease $ver
 
